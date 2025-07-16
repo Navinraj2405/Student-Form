@@ -11,11 +11,7 @@ A simple HTML, CSS, and JavaScript web application that allows users to fill out
 - Fully responsive layout with centered form
 - Vanilla JavaScript (no frameworks)
 
-## 🌐 Demo
-
-![Student Form Screenshot](screenshot.png)
-
-## 📁 Folder Structure
+ 
 
 
 ## 💡 How It Works
