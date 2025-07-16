@@ -1,0 +1,169 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      background-color: #e9e5e5;
+    }
+
+    h1 {
+      font-weight: bold;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .form-container {
+      border: 2px solid #000;
+      width: 350px;
+      padding: 15px;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin: 20px 0;
+    }
+
+    .form-row {
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: inline-block;
+      width: 70px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 200px;
+    }
+
+    .save-btn {
+      width: 100%;
+      background-color: aqua;
+      padding: 5px;
+      cursor: pointer;
+      border: none;
+    }
+
+    table {
+      width: 90%;
+      max-width: 900px;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 5px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    button {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>STUDENT FORM</h1>
+
+  <div class="form-container">
+    <div class="form-row">
+      <label>Name :</label>
+      <input type="text" id="name" />
+    </div>
+    <div class="form-row">
+      <label>Age :</label>
+      <input type="number" id="age" />
+    </div>
+    <div class="form-row">
+      <label>Gender :</label>
+      <input type="radio" name="gender" value="Male" /> Male
+      <input type="radio" name="gender" value="Female" /> Female
+    </div>
+    <div class="form-row">
+      <label>Course :</label>
+      <select id="course">
+        <option value="Fullstack developer">Fullstack developer</option>
+        <option value="Data Science">Data Science</option>
+        <option value="UI/UX Design">UI/UX Design</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Email :</label>
+      <input type="text" id="email" />
+    </div>
+    <button class="save-btn" onclick="addStudent()">save</button>
+  </div>
+
+  <table id="studentTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Course</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Entries will go here -->
+    </tbody>
+  </table>
+
+  <script>
+    function addStudent() {
+      const name = document.getElementById('name').value;
+      const age = document.getElementById('age').value;
+      const gender = document.querySelector('input[name="gender"]:checked')?.value || "Not selected";
+      const course = document.getElementById('course').value;
+      const email = document.getElementById('email').value;
+
+      if (!name || !age || !email || gender === "Not selected") {
+        alert("Please fill all required fields!");
+        return;
+      }
+
+      const table = document.getElementById('studentTable').getElementsByTagName('tbody')[0];
+      const newRow = table.insertRow();
+
+      newRow.innerHTML = `
+        <td>${name}</td>
+        <td>${age}</td>
+        <td>${gender}</td>
+        <td>${course}</td>
+        <td>${email}</td>
+        <td><button onclick="deleteRow(this)">Delete</button></td>
+      `;
+
+      // Clear form
+      document.getElementById('name').value = '';
+      document.getElementById('age').value = '';
+      document.querySelectorAll('input[name="gender"]').forEach(el => el.checked = false);
+      document.getElementById('course').selectedIndex = 0;
+      document.getElementById('email').value = '';
+    }
+
+    function deleteRow(btn) {
+      const row = btn.parentNode.parentNode;
+      row.remove();
+    }
+  </script>
+
+</body>
+</html>
